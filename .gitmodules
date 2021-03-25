@@ -1,3 +1,9 @@
 [submodule "ProjectFalcon"]
 	path = ProjectFalcon
 	url = https://github.com/LeshkaFalko/ProjectFalcon
+[submodule "OAP_tell_about"]
+	path = OAP_tell_about
+	url = https://github.com/StudLabs/OAP_tell_about
+[submodule "OAP_ZADACHI"]
+	path = OAP_ZADACHI
+	url = https://github.com/mgkk6/OAP_ZADACHI
