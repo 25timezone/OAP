@@ -43,6 +43,6 @@ for i in range(1, len(K)):
 
 print('Матрица жёсткости системы c ГУ: ', K)
 
-from 1_1_math import inverse_matrix
+from math import inverse_matrix
 
 invK = inverse_matrix(K)
