@@ -6,11 +6,11 @@
 EF1 = 1
 EF2 = 2
 EF3 = 3
-С = 2
+С1 = 2
 F = 10
 
 # Определим вектор усилий
-f=[]
+f=[0, 0,0,0,F]
 
 # Составим матрицы жесткости
 K1 = [[EF1,-EF1],
@@ -19,8 +19,8 @@ K2 = [[EF2,-EF2],
       [-EF2, EF2]]
 K3 = [[EF3,-EF3],
       [-EF3, EF3]]
-K4 = [[С,-С],
-      [-С, С]]
+K4 = [[С1,-С1],
+      [-С1, С1]]
 
 # Определим общую матрицу
 
@@ -44,8 +44,48 @@ for i in range(1, len(K)):
 print('Матрица жёсткости системы c ГУ: ', K)
 
 
-from math import inverse_matrix
+from matan import inverse_matrix
 
 invK = inverse_matrix(K)
 
-print('Матрица жёсткости системы c ГУ: ', invK)
+print('Матрица инвертированная: ', invK)
+
+q = []
+for i in range(len(f)):
+    u = 0
+    for j in range(len(f)):
+        u += invK[i][j] * f[j]
+    q.append(u)
+print('u', q)
+
+# Апроксимации
+
+from Aproximation import approximation
+
+def per(q1, q2):
+    print("0   ", approximation(0, [q1, q2], 1))
+    print("0.25", approximation(0.25, [q1, q2], 1))
+    print("0.5 ", approximation(0.5, [q1, q2], 1))
+    print("0.75", approximation(0.75, [q1, q2], 1))
+    print("1   ", approximation(1, [q1, q2], 1))
+
+from Aproximation import force_approximation
+
+def force(q1, q2, EF):
+    print("0   ", force_approximation(0, [q1, q2], 1, EF))
+    print("0.25", force_approximation(0.25, [q1, q2], 1, EF))
+    print("0.5 ", force_approximation(0.5, [q1, q2], 1, EF))
+    print("0.75", force_approximation(0.75, [q1, q2], 1, EF))
+    print("1   ", force_approximation(1, [q1, q2], 1, EF))
+
+# Перемещения элементов и усилия
+
+for i in range(0,4):
+    print('Перемещения элемента', i)
+    per(q[i],q[i+1])
+
+EF_all = [С1, EF1, EF2, EF3]
+
+for i in range(0,4):
+    print('Усилия для элемента', i)
+    force(q[i],q[i+1],EF_all[i])
